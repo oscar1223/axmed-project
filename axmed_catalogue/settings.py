@@ -11,21 +11,25 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+load_dotenv(os.path.join(BASE_DIR, '.env'))
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-&ajf$!ceirrxd8-t4kz6qf=nms@u$h!bttto(n7%zba41*q)r9'
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'default_secret_key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.getenv('ALLOWED__HOSTS', 'localhost').split(',')
 
 
 # Application definition
@@ -89,13 +93,23 @@ WSGI_APPLICATION = 'axmed_catalogue.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': BASE_DIR / 'db.sqlite3',
+#    }
+#}
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('DB_NAME', 'axmed_db'),
+        'USER': os.getenv('DB_USER', 'tu_usuario'),
+        'PASSWORD': os.getenv('DB_PASSWORD', 'tu_contraseña'),
+        'HOST': os.getenv('DB_HOST', 'localhost'),
+        'PORT': os.getenv('DB_PORT', '5432'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -140,7 +154,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Celery
 
-CELERY_BROKER_URL = 'redis://localhost:6379/0'  # Usando Redis como broker
+CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL', 'redis://localhost:6379/0')  # Usando Redis como broker
 CELERY_BEAT_SCHEDULE = {
     'send_daily_email': {
         'task': 'catalogue.tasks.send_daily_email',
@@ -154,6 +168,6 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'oscararauzp@gmail.com'
-EMAIL_HOST_PASSWORD = 'email_password'
-DEFAULT_FROM_EMAIL = 'oscararauzp@gmail.com'
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL')

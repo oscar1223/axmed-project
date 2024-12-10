@@ -47,7 +47,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "   {\n      \"inn\": \"Amoxicillin3000\",\n      \"formulation\": \"Tablet\",\n      \"dosage\": \"50\",\n      \"unit\": \"mg\"\n    }",
+					"raw": "   {\n      \"inn\": \"Amoxicillin3000\",\n      \"formulation\": \"Tablet\",\n      \"dose\": \"50\",\n      \"unit\": \"mg\"\n    }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -105,7 +105,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": " {\n      \"inn\": \"Amoxicillin\",\n      \"formulation\": \"Tablet\",\n      \"dosage\": \"100\",\n      \"unit\": \"mg\"\n    }",
+					"raw": " {\n      \"inn\": \"Amoxicillin\",\n      \"formulation\": \"Tablet\",\n      \"dose\": \"100\",\n      \"unit\": \"mg\"\n    }",
 					"options": {
 						"raw": {
 							"language": "json"
