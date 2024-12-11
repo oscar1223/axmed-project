@@ -1,0 +1,51 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>API Axmed</title>
+    <link rel="icon" href="{% static 'favicon.ico' %}" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+  </head>
+
+  <body>
+    <div class="container my-5">
+      <div class="text-center">
+        <h1 class="mt-4">API Axmed</h1>
+        <p class="lead">API Hecha por Óscar Arauz</p>
+      </div>
+
+      <hr />
+
+      <h2 class="my-4">Endpoints Principales</h2>
+      <ul class="list-group">
+        <li class="list-group-item"><a href="/admin/">Admin</a></li>
+        <li class="list-group-item"><a href="/redoc/">Redoc</a></li>
+        <li class="list-group-item"><a href="/swagger/">Swagger</a></li>
+        <li class="list-group-item">
+          <a href="http://localhost:3000/login/">Grafana</a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://localhost:9090">Prometheus</a>
+        </li>
+      </ul>
+
+      <hr />
+
+      <div class="my-4">
+        <p>
+          Para obtener más información sobre cómo usar esta API, por favor
+          visita nuestra <a href="/swagger/">documentación de la API</a>.
+        </p>
+        <div class="text-center">
+          <a href="/swagger/">
+            
+          </a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

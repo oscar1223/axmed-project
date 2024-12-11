@@ -24,12 +24,12 @@ load_dotenv(os.path.join(BASE_DIR, '.env'))
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'default_secret_key')
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-&ajf$!ceirrxd8-t4kz6qf=nms@u$h!bttto(n7%zba41*q)r9')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = os.getenv('ALLOWED__HOSTS', 'localhost').split(',')
+ALLOWED_HOSTS = os.getenv('ALLOWED__HOSTS', 'localhost,0.0.0.0,127.0.0.1').split(',')
 
 
 # Application definition
@@ -41,10 +41,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     'rest_framework',
     'catalogue',
     'django_prometheus',
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [
@@ -65,6 +65,9 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.AllowAny',  # Ajusta según tus necesidades
+    ),
 }
 
 
@@ -74,7 +77,7 @@ ROOT_URLCONF = 'axmed_catalogue.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates' ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -93,23 +96,23 @@ WSGI_APPLICATION = 'axmed_catalogue.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.sqlite3',
-#        'NAME': BASE_DIR / 'db.sqlite3',
-#    }
-#}
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DB_NAME', 'axmed_db'),
-        'USER': os.getenv('DB_USER', 'tu_usuario'),
-        'PASSWORD': os.getenv('DB_PASSWORD', 'tu_contraseña'),
-        'HOST': os.getenv('DB_HOST', 'localhost'),
-        'PORT': os.getenv('DB_PORT', '5432'),
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+#DATABASES = {
+#    'default': {
+#       'ENGINE': 'django.db.backends.postgresql',
+#        'NAME': os.getenv('DB_NAME', 'axmed_db'),
+#        'USER': os.getenv('DB_USER', 'axmed'),
+#        'PASSWORD': os.getenv('DB_PASSWORD', 'FSvt58E5fRRw7v'),
+#        'HOST': os.getenv('DB_HOST', 'db'),
+#        'PORT': os.getenv('DB_PORT', '5432'),
+#    }
+#}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -145,7 +148,17 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+
+# Directorio donde se recopilarán los archivos estát
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+# Directorios adicionales donde Django buscará archivos estáticos
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

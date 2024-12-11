@@ -16,6 +16,9 @@ RUN pip install -r requirements.txt
 # Copiar el código
 COPY . /app/
 
+# Recopilar archivos estáticos
+#RUN python manage.py collectstatic --no-input
+#RUN python manage.py migrate
 # Exponer el puerto
 EXPOSE 8000
 

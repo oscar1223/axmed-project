@@ -1,6 +1,6 @@
 # docker-compose.yml
 
-version: '3.8'
+version: '3.8'  # Define la versión de Docker Compose
 
 services:
   web:
@@ -13,30 +13,60 @@ services:
     env_file:
       - .env
     depends_on:
-      - db
       - redis
-
-  db:
-    image: postgres:13
-    environment:
-      POSTGRES_DB: ${DB_NAME}
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-    ports:
-      - "5433:5432"
+    networks:
+      - backend
 
   redis:
     image: redis:6
     ports:
       - "6379:6379"
+    networks:
+      - backend
 
   celery:
     build: .
-    command: celery -A axmed_catalogue worker -B --loglevel=info
+    command: celery -A axmed_catalogue worker --loglevel=info
+    ports:
+      - "5555:5555"  # Puerto para métricas de Celery (si está configurado)
     volumes:
       - .:/app
     env_file:
       - .env
     depends_on:
-      - db
       - redis
+    networks:
+      - backend
+
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus  # Volumen para persistencia de datos
+    ports:
+      - "9090:9090"
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+    networks:
+      - backend
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin  # Cambia esto por una contraseña segura
+    depends_on:
+      - prometheus
+    networks:
+      - backend
+
+volumes:
+  grafana_data:
+  prometheus_data:  # Añadido para la persistencia de datos de Prometheus
+
+networks:
+  backend:
+    driver: bridge
