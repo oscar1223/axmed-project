@@ -1,7 +1,5 @@
 # docker-compose.yml
 
-version: '3.8'  # Define the version of Docker Compose
-
 services:
   web:
     build: .
