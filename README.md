@@ -1,50 +1,51 @@
 # Axmed Medication SKU Catalogue
 
-## Descripción
+## Description
 
-Axmed es una plataforma destinada a acelerar el acceso a la atención médica y farmacéutica en países de ingresos bajos y medianos (LMICs). Esta aplicación permite gestionar un catálogo de SKUs de medicamentos, facilitando operaciones CRUD y carga masiva de datos.
+Axmed is a platform designed to accelerate access to healthcare and pharmaceuticals in low- and middle-income countries (LMICs). This application allows the management of a medication SKU catalogue, enabling CRUD operations and bulk data uploads.
 
-## Funcionalidades
+## Features
 
-- **CRUD de SKUs**: Crear, leer, actualizar y eliminar SKUs de medicamentos.
-- **Carga Masiva**: Subir múltiples SKUs a través de un endpoint dedicado.
-- **Validación de Unicidad**: Asegura que no existan SKUs duplicados, incluso con nombres INN similares.
-- **Monitoreo**: Integración con Prometheus y Grafana para monitoreo de métricas.
-- **Tareas Asíncronas**: Envío automático de correos electrónicos cada 24 horas utilizando Celery.
-- **Despliegue**: Dockerización y despliegue en la nube (Heroku).
+- **SKU CRUD**: Create, read, update, and delete medication SKUs.
+- **Bulk Upload**: Upload multiple SKUs through a dedicated endpoint.
+- **Uniqueness Validation**: Ensures no duplicate SKUs exist, even with similar INN names.
+- **Monitoring**: Integration with Prometheus and Grafana for metrics monitoring.
+- **Asynchronous Tasks**: Automatic email sending every 24 hours using Celery.
+- **Deployment**: Dockerized and deployed in the cloud (Heroku).
 
-## Tecnologías Utilizadas
+## Technologies Used
 
 - **Backend**: Django, Django REST Framework
-- **Base de Datos**: PostgreSQL
-- **Tareas Asíncronas**: Celery
-- **Monitoreo**: Prometheus, Grafana
-- **Contenerización**: Docker, Docker Compose
-- **Despliegue**: Heroku
+- **Database**: SQLite
+- **Asynchronous Tasks**: Celery
+- **Monitoring**: Prometheus, Grafana
+- **Containerization**: Docker, Docker Compose
+- **Deployment**: AWS + GitHub Actions
 
-## Instalación Local
+## Local Installation
 
-### **Requisitos**
+### **Requirements**
 
-- Docker y Docker Compose instalados.
-- Cuenta de correo para configurar el envío de emails.
+- Docker and Docker Compose installed.
+- An email account for configuring email sending.
 
-### **Pasos**
+### **Steps**
 
-1. **Clonar el Repositorio**:
+1. **Clone the Repository**:
 
    ```bash
-   git clone https://github.com/tu_usuario/axmed_catalogue.git
+   git clone https://github.com/your_user/axmed_catalogue.git
    cd axmed_catalogue
+
    ```
 
-2. **Crear el Archivo `.env`**:
+2. **Create the `.env`** file:
 
-   Crea un archivo `.env` en la raíz del proyecto con las siguientes variables:
+   Create a `.env` file in the root of the project with the following variables:
 
    ```env
    # Secret Key
-   DJANGO_SECRET_KEY=tu_clave_secreta_aqui
+   DJANGO_SECRET_KEY=your_secret_key_here
 
    # Debug Mode
    DEBUG=True
@@ -52,49 +53,74 @@ Axmed es una plataforma destinada a acelerar el acceso a la atención médica y 
    # Allowed Hosts
    ALLOWED_HOSTS=localhost,127.0.0.1
 
-   # Database Configuration
-   DB_NAME=axmed_db
-   DB_USER=tu_usuario
-   DB_PASSWORD=tu_contraseña
-   DB_HOST=db
-   DB_PORT=5432
-
    # Email Configuration
    EMAIL_HOST_USER=tu_email@gmail.com
-   EMAIL_HOST_PASSWORD=tu_contraseña
+   EMAIL_HOST_PASSWORD=your_password
    DEFAULT_FROM_EMAIL=tu_email@gmail.com
 
    # Celery Configuration
    CELERY_BROKER_URL=redis://redis:6379/0
    ```
 
-   > **Nota**: Reemplaza los valores con tus propias configuraciones.
+   > **Note**: Replace the values with your own settings.
 
-3. **Construir y Ejecutar los Contenedores**:
+3. **Build and Run Containers**:
 
    ```bash
    docker-compose up --build
    ```
 
-4. **Aplicar Migraciones y Crear Superusuario**:
+4. **Apply Migrations and Create Superuser**:
 
-   En otra terminal, ejecuta:
+   In another terminal, run:
 
    ```bash
    docker-compose exec web python manage.py migrate
    docker-compose exec web python manage.py createsuperuser
    ```
 
-5. **Acceder a la Aplicación**:
+5. **Access the Application**:
 
    - **API**: `http://localhost:8000/api/`
-   - **Admin**: `http://localhost:8000/admin/`
-   - **Metrics**: `http://localhost:8000/metrics/`
+   - Admin\*\*: `http://localhost:8000/admin/`
+   - **Swagger**: `http://localhost:8000/swagger/`
+   - **Redoc**: `http://localhost:8000/redoc/`
+   - **Grafana**: `http://localhost:3000`
+   - **Prometheus**: `http://localhost:9090`
+   - **Autentication**: `http://localhost:8000/token/`
 
-## Pruebas
+   > **Note**: To make an API request, please check the file: [JSON POSTMAN](axmed.postman_collection.json).
 
-Ejecutar las pruebas con `pytest`:
+## Testing
+
+Run the tests with `pytest`:
 
 ```bash
 docker-compose exec web pytest
 ```
+
+## Bonus
+
+In addition to the additional points that you highlight in the pdf of the technical test, I have added several features to the API to make it more robust and scalable.
+
+1. **JWT**
+
+   I have added Json Web Token for user authentication when using the API, for this you must create a superuser in Django.
+
+   ```bash
+   docker-compose exec web python manage.py createsuperuser
+   ```
+
+2. **Swagger && Redoc**
+
+   I have added Swagger to improve the backend development and presentation of the api, along with Redoc.
+
+   - **Swagger**: `http://localhost:8000/swagger/`
+   - **Redoc**: `http://localhost:8000/redoc/`
+
+3. **Prometheus && Grafana**
+
+   I have also added monitoring applications for debugging, maintenance and real-time API statistics.
+
+   - **Grafana**: `http://localhost:3000`
+   - **Prometheus**: `http://localhost:9090`

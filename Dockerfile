@@ -5,22 +5,19 @@ FROM python:3.11-slim
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-# Directorio de trabajo
+# Working directory
 WORKDIR /app
 
-# Instalar dependencias
+# Installation of dependencies
 COPY requirements.txt /app/
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-# Copiar el código
+# Copy code
 COPY . /app/
 
-# Recopilar archivos estáticos
-#RUN python manage.py collectstatic --no-input
-#RUN python manage.py migrate
-# Exponer el puerto
+# Exposing the port
 EXPOSE 8000
 
-# Comando por defecto
+# Default command
 CMD ["gunicorn", "axmed_catalogue.wsgi:application", "--bind", "0.0.0.0:8000"]

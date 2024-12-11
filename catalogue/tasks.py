@@ -4,8 +4,8 @@ from django.conf import settings
 
 @shared_task
 def send_daily_email():
-    subject = 'Informe Diario de SKUs'
-    message = 'Este es un informe automático de los SKUs registrados en las últimas 24 horas.'
+    subject = 'Daily SKUs Report'
+    message = 'This is an automatic report of the SKUs registered in the last 24 hours.'
     from_email = settings.DEFAULT_FROM_EMAIL
-    recipient_list = ['oscar@arauz.dev']
+    recipient_list = ['info@axmed.com']
     send_mail(subject, message, from_email, recipient_list)

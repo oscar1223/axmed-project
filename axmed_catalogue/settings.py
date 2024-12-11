@@ -103,16 +103,6 @@ DATABASES = {
     }
 }
 
-#DATABASES = {
-#    'default': {
-#       'ENGINE': 'django.db.backends.postgresql',
-#        'NAME': os.getenv('DB_NAME', 'axmed_db'),
-#        'USER': os.getenv('DB_USER', 'axmed'),
-#        'PASSWORD': os.getenv('DB_PASSWORD', 'FSvt58E5fRRw7v'),
-#        'HOST': os.getenv('DB_HOST', 'db'),
-#        'PORT': os.getenv('DB_PORT', '5432'),
-#    }
-#}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -150,10 +140,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# Directorio donde se recopilarán los archivos estát
+# Directory where static files will be collected
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-# Directorios adicionales donde Django buscará archivos estáticos
+# Additional directories where Django will look for static files
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
@@ -178,7 +168,7 @@ CELERY_BEAT_SCHEDULE = {
 # Emails
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST = 'smtp.dondominio.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')

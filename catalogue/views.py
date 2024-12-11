@@ -9,6 +9,8 @@ from django.db import IntegrityError, transaction
 from rest_framework.permissions import IsAuthenticated
 import json
 
+
+# View for CRUD
 class MedicationSKUViewSet(viewsets.ModelViewSet):
     queryset = MedicationSKU.objects.all()
     serializer_class = MedicationSKUSerializer
@@ -29,6 +31,7 @@ class MedicationSKUViewSet(viewsets.ModelViewSet):
         serializer.save()
 
 
+# View for login
 class ProtectedView(APIView):
     permission_classes = [IsAuthenticated]
 

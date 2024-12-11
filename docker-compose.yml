@@ -1,6 +1,6 @@
 # docker-compose.yml
 
-version: '3.8'  # Define la versión de Docker Compose
+version: '3.8'  # Define the version of Docker Compose
 
 services:
   web:
@@ -28,7 +28,7 @@ services:
     build: .
     command: celery -A axmed_catalogue worker --loglevel=info
     ports:
-      - "5555:5555"  # Puerto para métricas de Celery (si está configurado)
+      - "5555:5555"  # Celery metrics port
     volumes:
       - .:/app
     env_file:
@@ -42,7 +42,7 @@ services:
     image: prom/prometheus:latest
     volumes:
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
-      - prometheus_data:/prometheus  # Volumen para persistencia de datos
+      - prometheus_data:/prometheus  # Volume for data persistence
     ports:
       - "9090:9090"
     command:
@@ -57,7 +57,7 @@ services:
     volumes:
       - grafana_data:/var/lib/grafana
     environment:
-      - GF_SECURITY_ADMIN_PASSWORD=admin  # Cambia esto por una contraseña segura
+      - GF_SECURITY_ADMIN_PASSWORD=admin  # Change this to a secure password
     depends_on:
       - prometheus
     networks:
@@ -65,7 +65,7 @@ services:
 
 volumes:
   grafana_data:
-  prometheus_data:  # Añadido para la persistencia de datos de Prometheus
+  prometheus_data:  # Added for Prometheus data persistence
 
 networks:
   backend:
