@@ -73,7 +73,9 @@ REST_FRAMEWORK = {
 }
 
 CORS_ALLOW_ALL_ORIGINS = True
-CORS_ALLOWED_ORIGINS = 'https://kc63ppdg7e.eu-west-1.awsapprunner.com/'
+CORS_ALLOWED_ORIGINS = ['https://kc63ppdg7e.eu-west-1.awsapprunner.com/', 
+                        'http://localhost:8000'
+]
 
 ROOT_URLCONF = 'axmed_catalogue.urls'
 
