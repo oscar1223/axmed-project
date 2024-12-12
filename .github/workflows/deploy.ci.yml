@@ -95,5 +95,4 @@ jobs:
         with:
           cluster: ${{ secrets.ECS_CLUSTER }}
           service: ${{ secrets.ECS_SERVICE }}
-          task-definition: "aws-ecs-task-definition.json"
           wait-for-service-stability: true
