@@ -27,15 +27,16 @@ load_dotenv(os.path.join(BASE_DIR, '.env'))
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-&ajf$!ceirrxd8-t4kz6qf=nms@u$h!bttto(n7%zba41*q)r9')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG', 'False') == 'True'
+#DEBUG = os.getenv('DEBUG', 'False') == 'True'
+DEBUG = False
 
+# ALLOWED_HOSTS = [
+#     'https://kc63ppdg7e.eu-west-1.awsapprunner.com',            
+#     'localhost',                  
+#     '127.0.0.1',
+# ]
 
-ALLOWED_HOSTS = [
-    'https://kc63ppdg7e.eu-west-1.awsapprunner.com',            
-    'localhost',                  
-    '127.0.0.1',
-]
-
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(',')
 
 # Application definition
 
@@ -79,8 +80,8 @@ REST_FRAMEWORK = {
 
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOWED_ORIGINS = ['https://kc63ppdg7e.eu-west-1.awsapprunner.com', 
-                        'http://localhost:8000'
-]
+                        'http://localhost:8000']
+#CSRF_TRUSTED_ORIGINS = ALLOWED_HOSTS
 
 ROOT_URLCONF = 'axmed_catalogue.urls'
 
