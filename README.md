@@ -123,3 +123,7 @@ In addition to the additional points that you highlight in the pdf of the techni
 
    - **Grafana**: `http://localhost:3000`
    - **Prometheus**: `http://localhost:9090`
+
+4. **Celery**
+
+   I have added a task with Celery so that an email is sent every 24h.
