@@ -29,7 +29,12 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-&ajf$!ceirrxd8-t4kz
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = os.getenv('ALLOWED__HOSTS', 'https://kc63ppdg7e.eu-west-1.awsapprunner.com/').split(',')
+
+ALLOWED_HOSTS = [
+    'https://kc63ppdg7e.eu-west-1.awsapprunner.com',            
+    'localhost',                  
+    '127.0.0.1',
+]
 
 
 # Application definition
@@ -186,7 +191,3 @@ EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL')
 
-# SECURE_SSL_REDIRECT = True
-# SESSION_COOKIE_SECURE = True
-# CSRF_COOKIE_SECURE = True
-# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
