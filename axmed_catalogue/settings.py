@@ -45,9 +45,11 @@ INSTALLED_APPS = [
     'catalogue',
     'django_prometheus',
     'drf_yasg',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django_prometheus.middleware.PrometheusBeforeMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -70,6 +72,7 @@ REST_FRAMEWORK = {
     ),
 }
 
+CORS_ALLOW_ALL_ORIGINS = True
 
 ROOT_URLCONF = 'axmed_catalogue.urls'
 

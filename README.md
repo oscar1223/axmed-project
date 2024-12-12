@@ -11,7 +11,7 @@ Axmed is a platform designed to accelerate access to healthcare and pharmaceutic
 - **Uniqueness Validation**: Ensures no duplicate SKUs exist, even with similar INN names.
 - **Monitoring**: Integration with Prometheus and Grafana for metrics monitoring.
 - **Asynchronous Tasks**: Automatic email sending every 24 hours using Celery.
-- **Deployment**: Dockerized and deployed in the cloud (Heroku).
+- **Deployment**: Dockerized and deployed in the cloud (AWS ECR, AWS AppRunner).
 
 ## Technologies Used
 
@@ -36,7 +36,6 @@ Axmed is a platform designed to accelerate access to healthcare and pharmaceutic
    ```bash
    git clone https://github.com/your_user/axmed_catalogue.git
    cd axmed_catalogue
-
    ```
 
 2. **Create the `.env`** file:
