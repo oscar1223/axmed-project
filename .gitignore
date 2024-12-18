@@ -1,15 +1,2 @@
 venv
 .env
-.pytest_cache
-db.sqlite3
-
-# Docker
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-*.swp
-*.swo
-*.log
-
-staticfiles
